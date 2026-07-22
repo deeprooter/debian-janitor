@@ -1,4 +1,14 @@
 #!/bin/bash
+#===============================================================
+# Script Name:    6.2-zenity-rsp.sh
+# Description:    Automates package repair, cleanup, and tuning for Debian.
+# Author:         Kamal K. Chhoker halides@live.com
+# Ownership:      Kamal K. Chhoker
+# License:        MIT License
+# Version:        1.0.0
+# Date Created:   2026-07-18
+# Last Modified:  2026-07-21
+#===============================================================
 
 # quick sanity check for root
 if [ "$EUID" -ne 0 ]; then
