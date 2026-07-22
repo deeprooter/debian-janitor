@@ -1,5 +1,14 @@
 #!/bin/bash
-
+#===============================================================
+# Script Name:    launcher.sh
+# Description:    Automates package repair, cleanup, and tuning for Debian.
+# Author:         Kamal K. Chhoker halides@live.com
+# Ownership:      Kamal K. Chhoker
+# License:        MIT License
+# Version:        1.0.0
+# Date Created:   2026-07-19
+# Last Modified:  2026-07-21
+#===============================================================
 # explicit administrative checking guard rails
 if [ "$EUID" -ne 0 ]; then
   echo "Fatal error: You must call this file context utilizing sudo execution."
