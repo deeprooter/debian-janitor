@@ -25,23 +25,29 @@ Before installing, ensure your system meets the following requirements:
 
 ## Installation
 
-Clone this repository and navigate into the project directory:
-
+Download the file:```sys-cleanup-pkg.deb``` in you ``` /tmp ```directory:
 ```bash
-git clone https://github.com
-cd YOUR-REPOSITORY-NAME
+cd /tmp
 ```
 
-*(Note: Add your specific compilation, execution, or script permission commands here—for example: `chmod +x script.sh`)*
+```bash
+chmod +x sys-cleanup-pkg.deb
+````
+
+```bash
+sudo apt install ./sys-cleanup-pkg.deb
+```
+
+Upon sucessfull installation an icon will be added to your **show apps** section. 
+Alternatively, you may find the installed utility with name **System Maintenance Tool**.
 
 ## Usage
+1. Enter password for the current user
+2. Make selection for the jobs and hit OK.
+<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/959ffff2-2993-4307-9f1b-8ba2f95784bd" />
 
-To launch the application, run the following command in your terminal:
+Logs are shown on screen. After sucessful completion you shall see message with memory recovered (if job selected).
 
-```bash
-# Example command to run your app
-./run-app.sh
-```
 
 ## Contributing
 
