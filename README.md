@@ -1,7 +1,8 @@
 # debian-janitor
-A simple system cleaner tool that runs the integrity check on the package manger, pulls update and purge the unused memory.
+
+_A simple destro cleaner tool that runs the integrity check on the package manger, pulls update and purge the unused memory._
 ---
-# Linux System Maintenance Tool
+## Linux System Maintenance Tool
 
 Maintaining and keeping a Linux distribution up to date can feel overwhelming. This is especially true for Debian-based operating systems, where updates arrive almost daily and require regular attention. While standard system updates are relatively straightforward, essential maintenance tasks—like fixing a broken package manager, purging old, unused packages, and clearing system clutter—often get left behind. 
 
@@ -21,7 +22,7 @@ Before installing, ensure your system meets the following requirements:
 * **Operating System:** Ubuntu, Debian, Linux Mint, or any Debian-based distribution.
 * **Permissions:** Sudo/root access (required to manage system packages).
 
-* **NOTE: The cuurent version is tested on Zorin, Kali Linux and Raspberry Pi OS.**
+* **NOTE: The current version is tested on Zorin, Kali Linux and Raspberry Pi OS.**
 
 ## Installation
 
