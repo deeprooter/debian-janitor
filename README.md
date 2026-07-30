@@ -39,7 +39,7 @@ chmod +x sys-cleanup-pkg.deb
 sudo apt install ./sys-cleanup-pkg.deb
 ```
 
-Upon sucessfull installation an icon will be added to your **show apps** section. 
+Upon successful installation an icon will be added to your **show apps** section. 
 Alternatively, you may find the installed utility with name **System Maintenance Tool**.
 
 ## Usage
@@ -47,7 +47,15 @@ Alternatively, you may find the installed utility with name **System Maintenance
 2. Make selection for the jobs and hit OK.
 <img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/959ffff2-2993-4307-9f1b-8ba2f95784bd" />
 
-Logs are shown on screen. After sucessful completion you shall see message with memory recovered (if job selected).
+Logs are shown on screen. After successful completion you shall see message with memory recovered (if job selected).
+
+## Screenshots
+
+<img width="1236" height="764" alt="image" src="https://github.com/user-attachments/assets/ad7934d8-45c7-4cf9-8698-1e89930c17b9" />
+<img width="966" height="474" alt="Screenshot From 2026-07-29 23-02-23" src="https://github.com/user-attachments/assets/92ed2d45-d76e-45c7-ba9d-ab46c9762407" />
+<img width="1192" height="1006" alt="image" src="https://github.com/user-attachments/assets/fbce63b3-453d-417b-bd0d-b9ee26e2cb2c" />
+<img width="1516" height="1014" alt="image" src="https://github.com/user-attachments/assets/4c582079-7e1f-43d6-9a22-7502117c3580" />
+<img width="1020" height="532" alt="image" src="https://github.com/user-attachments/assets/41186fc1-ce27-454c-85ae-ac9dc37fb10f" />
 
 
 ## Contributing
