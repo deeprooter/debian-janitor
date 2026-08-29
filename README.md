@@ -1,4 +1,4 @@
-# debian destro janitor
+# Debian Destro Janitor
 
 _A simple destro cleaner tool that runs the integrity check on the package manger, pulls update and purge the unused memory._
 ---
@@ -26,36 +26,44 @@ Before installing, ensure your system meets the following requirements:
 
 ## Installation
 
-Download the file:```sys-cleanup-pkg.deb``` in you ``` /tmp ```directory:
+Download the file:```destro-janitor.deb``` in you ``` /tmp ```directory:
 ```bash
 cd /tmp
 ```
 
 ```bash
-chmod +x sys-cleanup-pkg.deb
+chmod +x destro-janitor.deb
 ````
 
 ```bash
-sudo apt install ./sys-cleanup-pkg.deb
+sudo apt install ./destro-janitor.deb
 ```
 
 Upon successful installation an icon will be added to your **show apps** section. 
-Alternatively, you may find the installed utility with name **System Maintenance Tool**.
+Alternatively, you may find the installed utility with name **Debian Destro Janitor**.
+
+<img width="101" height="77" alt="app-icon" src="https://github.com/user-attachments/assets/cb1e29b3-0c14-4554-858f-5177af3fa20f" />
+
+## Uninstall
+```bash
+sudo apt purge destro-janitor.deb
+````
 
 ## Usage
 1. Enter password for the current user
 2. Make selection for the jobs and hit OK.
-<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/959ffff2-2993-4307-9f1b-8ba2f95784bd" />
 
 Logs are shown on screen. After successful completion you shall see message with memory recovered (if job selected).
 
 ## Screenshots
+### GUI
+<img width="633" height="484" alt="ddj1" src="https://github.com/user-attachments/assets/4cf0d880-9297-4e8d-89e5-a20309a186d2" />
 
-<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/ad7934d8-45c7-4cf9-8698-1e89930c17b9" />
-<img width="570" height="420" alt="Screenshot From 2026-07-29 23-02-23" src="https://github.com/user-attachments/assets/92ed2d45-d76e-45c7-ba9d-ab46c9762407" />
-<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/fbce63b3-453d-417b-bd0d-b9ee26e2cb2c" />
-<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/4c582079-7e1f-43d6-9a22-7502117c3580" />
-<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/41186fc1-ce27-454c-85ae-ac9dc37fb10f" />
+### Terminal
+<img width="600" height="451" alt="ddj3" src="https://github.com/user-attachments/assets/e92a18db-3507-49ca-bcbe-33f93aa9c0ac" />
+
+### Logs
+<img width="633" height="484" alt="ddj2" src="https://github.com/user-attachments/assets/4a30387f-a14e-429b-b834-4923d5c60c91" />
 
 
 ## Contributing
@@ -70,3 +78,11 @@ Contributions are welcome! If you want to improve this tool:
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+## Archive Screenshots
+<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/ad7934d8-45c7-4cf9-8698-1e89930c17b9" />
+<img width="570" height="420" alt="Screenshot From 2026-07-29 23-02-23" src="https://github.com/user-attachments/assets/92ed2d45-d76e-45c7-ba9d-ab46c9762407" />
+<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/fbce63b3-453d-417b-bd0d-b9ee26e2cb2c" />
+<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/4c582079-7e1f-43d6-9a22-7502117c3580" /> 
+<img width="570" height="420" alt="image" src="https://github.com/user-attachments/assets/41186fc1-ce27-454c-85ae-ac9dc37fb10f" />
