@@ -1,47 +1,93 @@
 #!/bin/bash
 #===============================================================
-# Script Name:    launcher.sh
-# Description:    Automates package repair, cleanup, and tuning for Debian.
-# Author:         Kamal K. Chhoker halides@live.com
-# Ownership:      Kamal K. Chhoker
-# License:        MIT License
-# Version:        1.0.0
-# Date Created:   2026-07-19
-# Last Modified:  2026-07-21
+# Script Name:   launcher.sh
+# Description:   Automates package repair, cleanup, and tuning for Debian.
+# Author:        Kamal K. Chhoker <halides@live.com>
+# Ownership:     Kamal K. Chhoker
+# License:       MIT License
+# Version:       1.0.12
+# Date Created:  2026-07-19
+# Last Modified: 2026-08-29
 #===============================================================
-# explicit administrative checking guard rails
-if [ "$EUID" -ne 0 ]; then
-  echo "Fatal error: You must call this file context utilizing sudo execution."
-  read -p "Press [Enter] to terminate process execution..." -r
-  exit 1
+
+# Locate the directory where this script sits
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+REAL_SCRIPT_PATH=$(readlink -f "${BASH_SOURCE}")
+
+# Use the real session Xauthority, not GDM's
+if [ -f "$HOME/.Xauthority" ]; then
+    export XAUTHORITY="$HOME/.Xauthority"
 fi
 
-#resolve absolute execution base path dynamically
-working_directory="$(dirname "$(readlink -f "$0" 2>/dev/null || realpath "$0")")"
+# =====================================================================
+# 1. GRAPHICAL ELEVATION
+# =====================================================================
+if [ "$EUID" -ne 0 ]; then
+    if [ -n "$_ALREADY_ELEVATED" ]; then
+        echo "Error: Elevation failed. Try: sudo $0" >&2
+        exit 1
+    fi
 
-echo "Evaluating desktop capabilities..."
+    if command -v pkexec &> /dev/null; then
+        echo "Elevating privileges graphically via pkexec..."
+        export _ALREADY_ELEVATED=1
+        exec env _ALREADY_ELEVATED=1 pkexec env \
+            DISPLAY="$DISPLAY" \
+            XAUTHORITY="$XAUTHORITY" \
+            WAYLAND_DISPLAY="$WAYLAND_DISPLAY" \
+            _ALREADY_ELEVATED=1 \
+            /bin/bash "$REAL_SCRIPT_PATH" "$@"
 
-# check path structure for existing zenity graphical instances
-if command -v zenity &> /dev/null; then
-  echo "--> UI architecture active. Loading desktop interface tools..."
-  echo "--------------------------------------------------"
-  target_gui_script="$working_directory/6.2-zenity-rsp.sh"
-  if [ -f "$target_gui_script" ]; then
-    bash "$target_gui_script"
-  else
-    echo "System Error: Missing script dependency target: $target_gui_script"
-    read -p "Press [Enter] to continue..." -r
-  fi
+    elif command -v sudo &> /dev/null; then
+        read -rsp "Password: " PASSWORD
+        echo
+        if [ -z "$PASSWORD" ]; then
+            echo "Error: Authentication canceled by user." >&2
+            exit 1
+        fi
+        echo "$PASSWORD" | sudo -S env \
+            DISPLAY="$DISPLAY" \
+            XAUTHORITY="$XAUTHORITY" \
+            WAYLAND_DISPLAY="$WAYLAND_DISPLAY" \
+            /bin/bash "$REAL_SCRIPT_PATH" "$@"
+    else
+        echo "Error: Neither pkexec nor sudo available." >&2
+        exit 1
+    fi
+fi
 
+# =====================================================================
+# EVERYTHING BELOW RUNS AS ROOT
+# =====================================================================
+
+# Recover the original user
+if [ -z "$SUDO_USER" ] || [ "$SUDO_USER" = "root" ]; then
+    SUDO_USER=$(logname 2>/dev/null || echo "$USER")
+fi
+
+# Authorize root to connect to the user's X display
+if [ -n "$SUDO_USER" ] && [ "$SUDO_USER" != "root" ] && command -v xhost &> /dev/null; then
+    sudo -u "$SUDO_USER" xhost +si:localuser:root &>/dev/null
+fi
+
+# =====================================================================
+# 2. LAUNCH GUI
+# =====================================================================
+if command -v zenity &> /dev/null && [ -f "$SCRIPT_DIR/zenity.sh" ]; then
+    echo "--> Zenity detected. Launching GUI layout..."
+    exec env \
+        DISPLAY="$DISPLAY" \
+        XAUTHORITY="$XAUTHORITY" \
+        WAYLAND_DISPLAY="$WAYLAND_DISPLAY" \
+        SUDO_USER="$SUDO_USER" \
+        USER="$SUDO_USER" \
+        bash "$SCRIPT_DIR/zenity.sh"
 else
-  echo "--> No desktop engine detected. Reverting to console mode interfaces..."
-  echo "--------------------------------------------------"
-  
-  target_tui_script="$working_directory/7-whiptail.sh"
-  if [ -f "$target_tui_script" ]; then
-    bash "$target_tui_script"
-  else
-    echo "System Error: Missing script dependency target: $target_tui_script"
-    read -p "Press [Enter] to continue..." -r
-  fi
+    echo "--> Zenity missing or script unavailable. Falling back to Whiptail..."
+    if [ -f "$SCRIPT_DIR/whiptail.sh" ]; then
+        exec env SUDO_USER="$SUDO_USER" bash "$SCRIPT_DIR/whiptail.sh"
+    else
+        echo "Error: Neither zenity.sh nor whiptail.sh found in $SCRIPT_DIR."
+        exit 1
+    fi
 fi
