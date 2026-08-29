@@ -1,4 +1,4 @@
-# destro-janitor
+# debian destro janitor
 
 _A simple destro cleaner tool that runs the integrity check on the package manger, pulls update and purge the unused memory._
 ---
