@@ -19,9 +19,8 @@ if [ -f "$HOME/.Xauthority" ]; then
     export XAUTHORITY="$HOME/.Xauthority"
 fi
 
-# =====================================================================
-# 1. GRAPHICAL ELEVATION
-# =====================================================================
+######## 1. GRAPHICAL ELEVATION #########
+
 if [ "$EUID" -ne 0 ]; then
     if [ -n "$_ALREADY_ELEVATED" ]; then
         echo "Error: Elevation failed. Try: sudo $0" >&2
@@ -56,10 +55,7 @@ if [ "$EUID" -ne 0 ]; then
     fi
 fi
 
-# =====================================================================
-# EVERYTHING BELOW RUNS AS ROOT
-# =====================================================================
-
+########### EVERYTHING BELOW RUNS AS ROOT ###########
 # Recover the original user
 if [ -z "$SUDO_USER" ] || [ "$SUDO_USER" = "root" ]; then
     SUDO_USER=$(logname 2>/dev/null || echo "$USER")
@@ -70,9 +66,9 @@ if [ -n "$SUDO_USER" ] && [ "$SUDO_USER" != "root" ] && command -v xhost &> /dev
     sudo -u "$SUDO_USER" xhost +si:localuser:root &>/dev/null
 fi
 
-# =====================================================================
-# 2. LAUNCH GUI
-# =====================================================================
+
+############ 2. LAUNCH GUI #############
+
 if command -v zenity &> /dev/null && [ -f "$SCRIPT_DIR/zenity.sh" ]; then
     echo "--> Zenity detected. Launching GUI layout..."
     exec env \
