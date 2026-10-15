@@ -10,9 +10,9 @@
 # Last Modified: 2026-08-15
 #===============================================================
 
-# ====================================================================
-# Modern True-GUI Privilege Elevation Matrix
-# ====================================================================
+
+################# Modern True-GUI Privilege Elevation Matrix ################
+
 # Check if the script is already running with root permissions
 if [ "$EUID" -ne 0 ]; then
     # Verify that pkexec is installed on the system
@@ -27,9 +27,9 @@ if [ "$EUID" -ne 0 ]; then
     fi
 fi
 
-# --------------------------------------------------------------------
+####################################################################
 # Identify Environment & Users (Must happen before elevation check)
-# --------------------------------------------------------------------
+###################################################################
 # Track the non-root desktop user to correctly map graphical displays
 REAL_USER="${SUDO_USER:-${PKEXEC_UID:+#$(id -un $PKEXEC_UID)}}"
 REAL_USER="${REAL_USER:-$USER}"
@@ -88,9 +88,9 @@ if ! command -v zenity &> /dev/null; then
 fi
 
 
-# --------------------------------------------------------------------
+############################################################
 # Task Selection Screen
-# --------------------------------------------------------------------
+
 CHOICES=$(run_as_user zenity --list --checklist \
   --title="Debian Destro Janitor" \
   --text="Hello! Please select the tasks you would like to run today:" \
