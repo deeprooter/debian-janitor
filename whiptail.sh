@@ -10,13 +10,11 @@
 # Last Modified: 2026-08-02
 #===============================================================
 
-
 # Automatically create the dedicated log directory if it doesn't exist
 if [ ! -d "$LOG_DIR" ]; then
   mkdir -p "$LOG_DIR"
   chmod 755 "$LOG_DIR"
 fi
-
 
 # Ensure the script is run as root
 if [ "$EUID" -ne 0 ]; then
@@ -25,10 +23,8 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-
-# --------------------------------------------------------------------
 # Automatic Lock Cleanup on Exit / Cancellation
-# --------------------------------------------------------------------
+
 cleanup() {
   echo ""
   echo "Cleaning up package manager locks..."
@@ -52,9 +48,9 @@ cleanup() {
   
   exit 0
 }
-#-------------------------------------------------------------
-#code for abrut process kill
-#-------------------------------------------------------------
+
+################code for abrut process kill #######################
+
 # Trap SIGINT (Ctrl+C), SIGTERM (Kill), and EXIT
 trap cleanup SIGINT SIGTERM
 
@@ -68,9 +64,8 @@ USER_HOME=$(eval echo "~$REAL_USER")
 TRASH_DIR="$USER_HOME/.local/share/Trash"
 
 
-# --------------------------------------------------------------------
-# TUI Selection Menu (Whiptail Checkbox Window)
-# --------------------------------------------------------------------
+############# TUI Selection Menu (Whiptail Checkbox Window) ##############
+
 CHOICES=$(whiptail --title "Debian Destro Janitor" \
   --checklist "Use [Spacebar] to select tasks, then press [Enter]:" 18 65 8 \
   "1" "Clean Package Cache & Fix Broken Dependencies" OFF \
@@ -101,9 +96,9 @@ clear
 echo "=== Starting Selected Maintenance Tasks ==="
 BEFORE_KB=$(df / | awk 'NR==2 {print $4}')
 
-# --------------------------------------------------------------------
-# Task 1: Dpkg Clean
-# --------------------------------------------------------------------
+
+############# Task 1: Dpkg Clean  #############
+
   if [[ " $CHOICES " == *"1"* ]]; then
     echo ""
     echo "========================================================="
@@ -250,9 +245,9 @@ BEFORE_KB=$(df / | awk 'NR==2 {print $4}')
   echo "Feel free to review the log above and close this window."
   echo "========================================================="
 
-# --------------------------------------------------------------------
-# Final Summary Box
-# --------------------------------------------------------------------
+
+######### Final Summary Box  ############
+
 AFTER_KB=$(df / | awk 'NR==2 {print $4}')
 
 # FIX 2: Check safely if free space actually increased to prevent negative calculations
