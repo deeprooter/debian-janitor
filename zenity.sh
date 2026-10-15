@@ -126,9 +126,9 @@ CHOICES=$(echo "$CHOICES" | tr '|' ' ')
 # Bookmark initial drive space to calculate savings later
 BEFORE_KB=$(df / | awk 'NR==2 {print $4}')
 
-# --------------------------------------------------------------------
-# Core Maintenance Routines
-# --------------------------------------------------------------------
+
+################ Core Maintenance Routines#############################
+
 run_tasks() {
   # Task 1: Package Management Clean up
   if [[ " $CHOICES " == *" 1 "* ]]; then
@@ -271,9 +271,7 @@ run_tasks() {
   echo "========================================================="
 
 
-  # ====================================================================
-  # Space Statistics Finalization (Fixed Missing Syntax Tags)
-  # ====================================================================
+###################### #Calculate final space saved############################
   # Calculate final space statistics
   AFTER_KB=$(df / | awk 'NR==2 {print $4}')
   SAVED_KB=$((AFTER_KB - BEFORE_KB))
